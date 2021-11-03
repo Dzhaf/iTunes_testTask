@@ -18,18 +18,16 @@ class AlbumsViewController: UIViewController {
     }()
     
     private let searchController = UISearchController(searchResultsController: nil)
-    
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViews()
         setupDelegate()
-        setupConstraints()
+        setConstraints()
         setupSearchController()
-        
     }
-    
+
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(tableView)
@@ -40,61 +38,69 @@ class AlbumsViewController: UIViewController {
         tableView.dataSource = self
         
         searchController.searchBar.delegate = self
-        
     }
+    
+   
     
     private func setupSearchController() {
-        searchController.searchBar.placeholder  = "Search"
+        searchController.searchBar.placeholder = "Search"
         searchController.obscuresBackgroundDuringPresentation = false
+    }
+    
+   
+}
+
+//MARK: - UITableViewDataSource
+
+extension AlbumsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AlbumsTableViewCell
         
+        return cell
     }
 }
-    // UITableViewDataSource
+
+//MARK: - UITableViewDelegate
+
+extension AlbumsViewController: UITableViewDelegate {
     
-    extension AlbumsViewController: UITableViewDataSource {
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            10
-        }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        70
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailAlbumViewController = DetailAlbumViewController()
+        navigationController?.pushViewController(detailAlbumViewController, animated: true)
+    }
+}
+
+//MARK: - UISearchBarDelegate
+
+extension AlbumsViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+          
+        print(searchText)
+    }
+}
+
+//MARK: - SetConstraints
+
+extension AlbumsViewController {
+    
+    private func setConstraints() {
         
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AlbumsTableViewCell
-            
-            return cell
-        }
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        ])
     }
-    // UITableViewDelegate
-    
-    extension AlbumsViewController: UITableViewDelegate {
-        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            70
-        }
-        
-        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let detailAlbumViewController = DetailAlbumViewController()
-            navigationController?.pushViewController(detailAlbumViewController, animated: true)
-            
-        }
-    }
-    
-    extension AlbumsViewController: UISearchBarDelegate {
-        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            
-            print(searchText)
-        }
-    }
-    
-    extension AlbumsViewController {
-        
-        private func setupConstraints() {
-            NSLayoutConstraint.activate([
-                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-                tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-                tableView .bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
-                
-            ])
-        }
-    }
+}
     
     
 
