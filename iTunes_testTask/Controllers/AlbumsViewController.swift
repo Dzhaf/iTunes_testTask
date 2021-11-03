@@ -43,7 +43,7 @@ class AlbumsViewController: UIViewController {
    
     
     private func setupSearchController() {
-        searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.placeholder = "SEARCH"
         searchController.obscuresBackgroundDuringPresentation = false
     }
     
