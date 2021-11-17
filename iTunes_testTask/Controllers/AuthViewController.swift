@@ -143,7 +143,7 @@ extension AuthViewController {
     }
     
     @objc private func keyboardWillHide() {
-        print("Bye")
+        print("Bye bye")
         
     }
 }
