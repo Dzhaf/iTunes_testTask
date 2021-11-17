@@ -138,10 +138,12 @@ extension AuthViewController {
     }
     
     @objc private func keyboardWillShow() {
+        printContent("Show")
         
     }
     
     @objc private func keyboardWillHide() {
+        print("Bye")
         
     }
 }
