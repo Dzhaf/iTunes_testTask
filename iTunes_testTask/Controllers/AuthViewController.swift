@@ -125,6 +125,27 @@ extension AuthViewController: UITextFieldDelegate {
     }
 }
 
+extension AuthViewController {
+    
+    private func registerKeyboardNotification() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    @objc private func keyboardWillShow() {
+        
+    }
+    
+    @objc private func keyboardWillHide() {
+        
+    }
+}
+
 //MARK: - SetConstraints
 extension AuthViewController {
     
